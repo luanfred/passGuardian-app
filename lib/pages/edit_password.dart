@@ -148,6 +148,11 @@ class _EditPasswordState extends State<EditPassword> {
                     if (value == null || value.isEmpty) {
                       return 'Por favor, insira o e-mail ou nome de usuário';
                     }
+                    String pattern = r'^[^@]+@[^@]+\.[^@]+';
+                    RegExp regex = RegExp(pattern);
+                    if (!regex.hasMatch(value)) {
+                      return 'Por favor, insira um e-mail válido';
+                    }
                     return null;
                   },
                   maxLength: 50,
