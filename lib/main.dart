@@ -1,5 +1,6 @@
 import 'package:app_faculdade/pages/home.dart';
 import 'package:app_faculdade/pages/login.dart';
+import 'package:app_faculdade/pages/query_password.dart';
 import 'package:app_faculdade/pages/register.dart';
 import 'package:app_faculdade/pages/register_password.dart';
 import 'package:app_faculdade/theme/app_colors.dart';

@@ -40,7 +40,14 @@ dependencies:
   http: ^1.2.1
   shared_preferences: ^2.0.6
   provider: ^6.1.2
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
+flutter_icons:
+  android: true
+  ios: true
+  adaptive_icon_background: "#ffffff"
+  image_path: "assets/images/512.png"
 
 dev_dependencies:
   flutter_test:

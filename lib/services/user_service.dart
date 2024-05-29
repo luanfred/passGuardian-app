@@ -14,7 +14,6 @@ class UserService extends ServiceParameters {
       "password": password,
     });
     var response = await http.post(Uri.parse(url), body: body, headers: headers);
-    print('response.body: ' + response.body);
     if (response.statusCode == 200) {
       await _saveCredentials(username, password, isChecked);
     }

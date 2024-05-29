@@ -1,27 +1,29 @@
 
 import 'package:flutter/material.dart';
 
+import '../pages/query_password.dart';
 import '../theme/app_colors.dart';
 
 class CardPassword extends StatelessWidget {
-  const CardPassword({super.key, required this.title, required this.email});
+  const CardPassword({super.key, required this.title, required this.email, required this.passwordId});
   final String title;
   final String email;
+  final int passwordId;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 100,
       //width: MediaQuery.of(context).size.width - 40,
       child: Padding(
         padding: const EdgeInsets.only(
           top: 10,
-          left: 20,
-          right: 10,
+          left: 25,
+          right: 0,
           bottom: 10,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
@@ -47,7 +49,16 @@ class CardPassword extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.arrow_forward_ios),
+            TextButton(
+                onPressed: () {
+                  print('PasswordId: $passwordId');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => QueryPassword(passwordId: passwordId)));
+                },
+                child: const Icon(
+                  Icons.arrow_forward_ios,
+                  color: ThemeColors.blueText,
+                ),
+            )
           ],
         ),
       ),

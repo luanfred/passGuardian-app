@@ -1,6 +1,7 @@
 
 
 class PasswordModel2 {
+  int passwordId;
   String title;
   String url;
   String email;
@@ -8,6 +9,7 @@ class PasswordModel2 {
   String favorite;
 
   PasswordModel2 ({
+    required this.passwordId,
     required this.title,
     required this.url,
     required this.email,

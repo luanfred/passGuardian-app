@@ -58,6 +58,7 @@ class _PasswordPageState extends State<PasswordPage> {
                       child: CardPassword(
                         title: password.title,
                         email: password.email,
+                        passwordId: password.passwordId,
                       ),
                   ),
                 );

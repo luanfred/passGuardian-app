@@ -40,16 +40,65 @@ class PasswordService extends ServiceParameters {
       List<PasswordModel2> passwordsList = [];
       for (var password in json.decode(response.body)) {
         passwordsList.add(PasswordModel2(
+          passwordId: password['password_id'],
           title: password['title'],
           url: password['url'],
           email: password['email'],
           password: password['password'],
         ));
       }
-      print("deu certo: $passwordsList");
       return passwordsList;
     } else {
       return 'Erro ao buscar senhas';
     }
+  }
+
+  getPasswordById(int id) async {
+    final url = '${getUrl()}/passWords/$id';
+    final prefs = await SharedPreferences.getInstance();
+    var emailUserAuth = prefs.getString('username');
+    var passwordAuth = prefs.getString('password');
+    headers.addAll({
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$emailUserAuth:$passwordAuth'))}'
+    });
+    var response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      var password = json.decode(response.body);
+      return PasswordModel2(
+        passwordId: password['password_id'],
+        title: password['title'],
+        url: password['url'],
+        email: password['email'],
+        password: password['password'],
+        favorite: password['favorite'],
+      );
+    } else {
+      return 'Erro ao buscar senha';
+    }
+  }
+
+  deletePassword(int id) async {
+    final url = '${getUrl()}/passWords/$id';
+    final prefs = await SharedPreferences.getInstance();
+    var emailUserAuth = prefs.getString('username');
+    var passwordAuth = prefs.getString('password');
+    headers.addAll({
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$emailUserAuth:$passwordAuth'))}'
+    });
+    return await http.delete(Uri.parse(url), headers: headers);
+  }
+
+  favoritePassword(PasswordModel2 password) async {
+    final url = '${getUrl()}/passWords/${password.passwordId}';
+    final prefs = await SharedPreferences.getInstance();
+    var emailUserAuth = prefs.getString('username');
+    var passwordAuth = prefs.getString('password');
+    headers.addAll({
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$emailUserAuth:$passwordAuth'))}'
+    });
+    var favorite = password.favorite == 'S' ? 'N' : 'S';
+    password.favorite = favorite;
+    var body = json.encode(password.toMap()..update('favorite', (value) => favorite));
+    return http.put(Uri.parse(url), body: body, headers: headers);
   }
 }

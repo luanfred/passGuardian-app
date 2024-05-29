@@ -27,9 +27,9 @@ class FavoritePage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/login');
+                Navigator.pushNamed(context, '/query_password');
               },
-              child: Text('Ir para Login'),
+              child: Text('Ir para consulta de senha'),
             ),
           ],
         ),
