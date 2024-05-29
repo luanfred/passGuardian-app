@@ -101,4 +101,16 @@ class PasswordService extends ServiceParameters {
     var body = json.encode(password.toMap()..update('favorite', (value) => favorite));
     return http.put(Uri.parse(url), body: body, headers: headers);
   }
+
+  updatePassword(PasswordModel2 password) async {
+    final url = '${getUrl()}/passWords/${password.passwordId}';
+    final prefs = await SharedPreferences.getInstance();
+    var emailUserAuth = prefs.getString('username');
+    var passwordAuth = prefs.getString('password');
+    headers.addAll({
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$emailUserAuth:$passwordAuth'))}'
+    });
+    var body = json.encode(password.toMap());
+    return http.put(Uri.parse(url), body: body, headers: headers);
+  }
 }

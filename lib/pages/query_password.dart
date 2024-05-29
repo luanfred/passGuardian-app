@@ -15,6 +15,7 @@ class QueryPassword extends StatefulWidget {
 class _QueryPasswordState extends State<QueryPassword> {
   bool _obscureText = true;
   late bool _isFavorite = false;
+  bool _isLoading = true;
   late PasswordModel2 password;
   String _title = '';
   final TextEditingController _emailController = TextEditingController();
@@ -33,6 +34,7 @@ class _QueryPasswordState extends State<QueryPassword> {
       } else {
         _isFavorite = false;
       }
+      _isLoading = false;
     });
   }
 
@@ -102,7 +104,9 @@ class _QueryPasswordState extends State<QueryPassword> {
         ),
         backgroundColor: ThemeColors.backgroundColor,
       ),
-      body: SingleChildScrollView(
+      body:
+      _isLoading ? const Center(child: CircularProgressIndicator())
+      : SingleChildScrollView(
         child: Column(
             children: [
               Padding(
@@ -161,7 +165,23 @@ class _QueryPasswordState extends State<QueryPassword> {
                       width: 110,
                       height: 100,
                       child: OutlinedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            final updatedPassword = await Navigator.pushNamed(
+                              context,
+                              '/editPassword',
+                              arguments: password,
+                            );
+
+                            if (updatedPassword != null && updatedPassword is PasswordModel2) {
+                              setState(() {
+                                password = updatedPassword;
+                                _title = password.title;
+                                _emailController.text = password.email;
+                                _passwordController.text = password.password;
+                                _urlController.text = password.url;
+                                _isFavorite = password.favorite == 'S';
+                              });
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,

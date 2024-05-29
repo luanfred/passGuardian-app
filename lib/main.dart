@@ -1,3 +1,4 @@
+import 'package:app_faculdade/pages/edit_password.dart';
 import 'package:app_faculdade/pages/home.dart';
 import 'package:app_faculdade/pages/login.dart';
 import 'package:app_faculdade/pages/query_password.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
         '/registerPassword': (context) => const RegisterPasswordPage(),
+        '/editPassword': (context) => const EditPasswordPage(),
       },
       builder: (context, child) {
         return SafeArea(
