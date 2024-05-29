@@ -53,6 +53,33 @@ class PasswordService extends ServiceParameters {
     }
   }
 
+  getAllPasswordsFavorites() async {
+    final url = '${getUrl()}/passWords/favorites';
+    final prefs = await SharedPreferences.getInstance();
+    var emailUserAuth = prefs.getString('username');
+    var passwordAuth = prefs.getString('password');
+    headers.addAll({
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$emailUserAuth:$passwordAuth'))}'
+    });
+    var response = await http.get(Uri.parse(url), headers: headers);
+    if (response.statusCode == 200) {
+      List<PasswordModel2> passwordsList = [];
+      for (var password in json.decode(response.body)) {
+        passwordsList.add(PasswordModel2(
+          passwordId: password['password_id'],
+          title: password['title'],
+          url: password['url'],
+          email: password['email'],
+          password: password['password'],
+          favorite: password['favorite'],
+        ));
+      }
+      return passwordsList;
+    } else {
+      return 'Erro ao buscar senhas';
+    }
+  }
+
   getPasswordById(int id) async {
     final url = '${getUrl()}/passWords/$id';
     final prefs = await SharedPreferences.getInstance();
