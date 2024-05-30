@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../config/app_settings.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class LogoutPage extends StatelessWidget {
+  const LogoutPage({super.key});
 
   logout(context) async {
     await AppSettings().deleteUserData();
@@ -17,7 +17,7 @@ class ProfilePage extends StatelessWidget {
       backgroundColor: ThemeColors.backgroundColor,
       appBar: AppBar(
         title: const Text(
-            'Perfil',
+            'Sair',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: ThemeColors.blueText,

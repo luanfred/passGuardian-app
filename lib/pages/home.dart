@@ -1,7 +1,7 @@
 import 'package:app_faculdade/config/app_settings.dart';
 import 'package:app_faculdade/pages/favorite.dart';
 import 'package:app_faculdade/pages/generete_password.dart';
-import 'package:app_faculdade/pages/profile.dart';
+import 'package:app_faculdade/pages/logout.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
           PasswordPage(),
           FavoritePage(),
           GeneratePassword(),
-          ProfilePage(),
+          LogoutPage(),
         ],
         onPageChanged: (page) {setPageActive(page);},
       ),
@@ -79,8 +79,8 @@ class _HomePageState extends State<HomePage> {
             label: 'Gerar Senha',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline ),
-            label: 'Perfil',
+            icon: Icon(Icons.logout_outlined),
+            label: 'Sair',
           ),
         ],
         onTap: (page) {
