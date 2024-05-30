@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         children: const [
           PasswordPage(),
           FavoritePage(),
-          GenetePassword(),
+          GeneratePassword(),
           ProfilePage(),
         ],
         onPageChanged: (page) {setPageActive(page);},
