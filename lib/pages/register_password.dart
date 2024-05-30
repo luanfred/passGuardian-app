@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../services/password_service.dart';
 import '../theme/app_colors.dart';
+import 'generete_password.dart';
 
 class RegisterPasswordPage extends StatefulWidget {
   const RegisterPasswordPage({super.key});
@@ -58,6 +59,19 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
           content: Text('Erro ao salvar senha'),
         ),
       );
+    }
+  }
+
+  Future<void> _generatePassword() async {
+    final generatedPassword = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (context) => const GeneratePassword(shouldReturnPassword: true,)),
+    );
+
+    if (generatedPassword != null) {
+      setState(() {
+        _password.text = generatedPassword;
+      });
     }
   }
 
@@ -117,11 +131,6 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira o e-mail ou nome de usuário';
-                      }
-                      String pattern = r'^[^@]+@[^@]+\.[^@]+';
-                      RegExp regex = RegExp(pattern);
-                      if (!regex.hasMatch(value)) {
-                        return 'Por favor, insira um e-mail válido';
                       }
                       return null;
                     },
@@ -189,7 +198,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                       foregroundColor: Colors.white,
                       minimumSize: const Size(double.infinity, 40),
                     ),
-                    onPressed: () {  },
+                    onPressed: () { _generatePassword(); },
                     icon: const Icon(Icons.refresh_outlined),
                     label: const Text(
                         'Gerar senha',

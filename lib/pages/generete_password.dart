@@ -6,7 +6,8 @@ import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 
 class GeneratePassword extends StatefulWidget {
-  const GeneratePassword({super.key});
+  final bool shouldReturnPassword;
+  const GeneratePassword({super.key, this.shouldReturnPassword = false});
 
   @override
   State<GeneratePassword> createState() => _GeneratePasswordState();
@@ -26,6 +27,12 @@ class _GeneratePasswordState extends State<GeneratePassword> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Senha copiada para a área de transferência')),
     );
+  }
+
+  void _saveAndReturn() {
+    if (widget.shouldReturnPassword) {
+      Navigator.pop(context, _generatedPassword);
+    }
   }
 
   void _generatePassword() {
@@ -183,7 +190,7 @@ class _GeneratePasswordState extends State<GeneratePassword> {
                     children: [
                       ElevatedButton(
                           onPressed: () {
-
+                            _saveAndReturn();
                           },
                           child: const Icon(Icons.save_outlined, color: Colors.white,),
                           style: ElevatedButton.styleFrom(
