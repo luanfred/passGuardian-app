@@ -97,6 +97,11 @@ class _LoginPageState extends State<LoginPage> {
                       if (value == null || value.isEmpty) {
                         return 'Por favor, insira um e-mail';
                       }
+                      String pattern = r'^[^@]+@[^@]+\.[^@]+';
+                      RegExp regex = RegExp(pattern);
+                      if (!regex.hasMatch(value)) {
+                        return 'Por favor, insira um e-mail válido';
+                      }
                       return null;
                     },
                     keyboardType: TextInputType.emailAddress,
