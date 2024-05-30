@@ -20,19 +20,35 @@ class _LoginPageState extends State<LoginPage> {
   final _emailUser = TextEditingController();
   final _passwordUser = TextEditingController();
   bool _obscureText = true;
+  bool isLoading = false;
 
   void login() async {
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
     }
+    setState(() {
+      isLoading = true;
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     final response = await UserService().authenticate(
         _emailUser.text,
         _passwordUser.text,
         isChecked,
     );
+    Navigator.pop(context);
+    setState(() {
+      isLoading = false;
+    });
     if (response.statusCode == 200) {
-        //Navigator.pushNamed(context, '/',  arguments: true);
       Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false, arguments: true);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -210,7 +226,9 @@ class _LoginPageState extends State<LoginPage> {
                         foregroundColor: Colors.white,
                         minimumSize: const Size(double.infinity, 60),
                       ),
-                      onPressed: () {login();},
+                      onPressed: () {
+                        isLoading ? null : login();
+                      },
                       child: Text(
                         'Login',
                         style: GoogleFonts.inter(
