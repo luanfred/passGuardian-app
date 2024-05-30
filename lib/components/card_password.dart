@@ -4,12 +4,18 @@ import 'package:flutter/material.dart';
 import '../pages/query_password.dart';
 import '../theme/app_colors.dart';
 
-class CardPassword extends StatelessWidget {
-  const CardPassword({super.key, required this.title, required this.email, required this.passwordId});
+class CardPassword extends StatefulWidget {
+  const CardPassword({super.key, required this.title, required this.email, required this.passwordId, required this.onReturn});
   final String title;
   final String email;
   final int passwordId;
+  final VoidCallback onReturn;
 
+  @override
+  State<CardPassword> createState() => _CardPasswordState();
+}
+
+class _CardPasswordState extends State<CardPassword> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -32,7 +38,7 @@ class CardPassword extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    title,
+                    widget.title,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -40,7 +46,7 @@ class CardPassword extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    email,
+                    widget.email,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -50,9 +56,11 @@ class CardPassword extends StatelessWidget {
               ),
             ),
             TextButton(
-                onPressed: () {
-                  print('PasswordId: $passwordId');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => QueryPassword(passwordId: passwordId)));
+                onPressed: () async {
+                  await Navigator.push(context, MaterialPageRoute(builder: (context) => QueryPassword(passwordId: widget.passwordId)));
+                  setState(() {
+                    widget.onReturn();
+                  });
                 },
                 child: const Icon(
                   Icons.arrow_forward_ios,

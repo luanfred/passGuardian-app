@@ -40,6 +40,7 @@ class _EditPasswordState extends State<EditPassword> {
   final _passwordOrNameApp = TextEditingController();
   late String _favorite = '';
   bool _obscureText = true;
+  bool isLoading = false;
 
   getInfoPassword() {
     _title.text = widget.passwordModel.title;
@@ -54,11 +55,18 @@ class _EditPasswordState extends State<EditPassword> {
     if (!isValid) {
       return;
     }
-    print('Título: ${_title.text}');
-    print('E-mail ou nome de usuário: ${_username.text}');
-    print('Senha: ${_password.text}');
-    print('URL do site ou nome do aplicativo: ${_passwordOrNameApp.text}');
-    print('Favorito: $_favorite');
+    setState(() {
+      isLoading = true;
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     PasswordModel2 passwordModel = PasswordModel2(
       passwordId: widget.passwordModel.passwordId,
       title: _title.text,
@@ -68,8 +76,10 @@ class _EditPasswordState extends State<EditPassword> {
       favorite: _favorite,
     );
     var response = await PasswordService().updatePassword(passwordModel);
-    print("Response: ${response.statusCode}");
-    print("Response: ${response.body}");
+    Navigator.pop(context);
+    setState(() {
+      isLoading = false;
+    });
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -270,7 +280,7 @@ class _EditPasswordState extends State<EditPassword> {
                           minimumSize: const Size(double.infinity, 60),
                         ),
                         onPressed: () {
-                          savePassword();
+                          isLoading ? null : savePassword();
                         },
                         child: Text(
                           'Salvar',

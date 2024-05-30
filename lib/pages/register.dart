@@ -21,12 +21,25 @@ class _RegisterPageState extends State<RegisterPage> {
   final _emailUser = TextEditingController();
   final _passwordUser = TextEditingController();
   final _confirmPasswordUser = TextEditingController();
+  bool isLoading = false;
 
   void saveUser() async {
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
     }
+    setState(() {
+      isLoading = true;
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     UserModel user = UserModel(
         cpf: _cpfUser.text,
         name: _nameUser.text,
@@ -34,6 +47,10 @@ class _RegisterPageState extends State<RegisterPage> {
         password: _passwordUser.text
     );
     var response = await UserService().saveUser(user);
+    Navigator.pop(context);
+    setState(() {
+      isLoading = false;
+    });
     if (response.statusCode == 201) {
       Navigator.pushNamed(context, '/');
     } else if (response.statusCode == 409) {
@@ -247,7 +264,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         foregroundColor: Colors.white,
                         minimumSize: const Size(double.infinity, 60),
                       ),
-                      onPressed: () {saveUser();},
+                      onPressed: () { isLoading ? null : saveUser();},
                       child: Text(
                         'Registrar-se',
                         style: GoogleFonts.inter(

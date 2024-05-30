@@ -39,7 +39,17 @@ class _QueryPasswordState extends State<QueryPassword> {
   }
 
   favoritePassword() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     await PasswordService().favoritePassword(password);
+    Navigator.pop(context);
     if (password.favorite == 'S') {
       setState(() {
         _isFavorite = true;
@@ -52,7 +62,17 @@ class _QueryPasswordState extends State<QueryPassword> {
   }
 
   deletePassword() async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     await PasswordService().deletePassword(widget.passwordId);
+    Navigator.pop(context);
     Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false, arguments: true);
   }
 

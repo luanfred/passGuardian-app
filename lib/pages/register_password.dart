@@ -25,16 +25,25 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
   final _password = TextEditingController();
   final _passwordOrNameApp = TextEditingController();
   bool _obscureText = true;
+  bool isLoading = false;
 
   savePassword() async {
     final isValid = _form.currentState!.validate();
     if (!isValid) {
       return;
     }
-    print('Título: ${_title.text}');
-    print('E-mail ou nome de usuário: ${_username.text}');
-    print('Senha: ${_password.text}');
-    print('URL do site ou nome do aplicativo: ${_passwordOrNameApp.text}');
+    setState(() {
+      isLoading = true;
+    });
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
     final prefs = await SharedPreferences.getInstance();
     PasswordModel passwordModel = PasswordModel(
       title: _title.text,
@@ -44,6 +53,10 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
       user_id: prefs.getInt('userId')!,
     );
     var response = await PasswordService().savePassword(passwordModel);
+    Navigator.pop(context);
+    setState(() {
+      isLoading = true;
+    });
     print("Response: ${response.statusCode}");
     print("Response: ${response.body}");
     if (response.statusCode == 201) {
@@ -240,7 +253,7 @@ class _RegisterPasswordPageState extends State<RegisterPasswordPage> {
                             minimumSize: const Size(double.infinity, 60),
                           ),
                           onPressed: () {
-                            savePassword();
+                            isLoading ? null : savePassword();
                           },
                           child: Text(
                             'Salvar',

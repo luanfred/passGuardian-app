@@ -59,6 +59,11 @@ class _PasswordPageState extends State<PasswordPage> {
                         title: password.title,
                         email: password.email,
                         passwordId: password.passwordId,
+                        onReturn: () {
+                          setState(() {
+                            passwordList = getPassList();
+                          });
+                        },
                       ),
                   ),
                 );

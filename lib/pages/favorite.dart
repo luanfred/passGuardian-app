@@ -59,6 +59,11 @@ class _FavoritePageState extends State<FavoritePage> {
                       title: password.title,
                       email: password.email,
                       passwordId: password.passwordId,
+                      onReturn: () {
+                        setState(() {
+                          passwordFavoritesList = getPassFavoritesList();
+                        });
+                      },
                     ),
                   ),
                 );

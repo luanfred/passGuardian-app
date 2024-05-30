@@ -49,22 +49,6 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                top: 307,
-                right: 10,
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                  ),
-                  child: const Icon(
-                    Icons.arrow_forward,
-                    color: ThemeColors.blueButton,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
