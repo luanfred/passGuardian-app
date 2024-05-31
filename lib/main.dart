@@ -13,6 +13,10 @@ import 'package:provider/provider.dart';
 import 'config/app_settings.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(const MyApp());
 }
 
