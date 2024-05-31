@@ -6,6 +6,7 @@ import 'package:app_faculdade/pages/register.dart';
 import 'package:app_faculdade/pages/register_password.dart';
 import 'package:app_faculdade/theme/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +25,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-            seedColor: ThemeColors.blueButton,
-            brightness: Brightness.light,
+          seedColor: ThemeColors.blueButton,
+          brightness: Brightness.light,
         ),
         textTheme: GoogleFonts.interTextTheme(
           Theme.of(context).textTheme,
         ).apply(
-          bodyColor:ThemeColors.blueText,
+          bodyColor: ThemeColors.blueText,
           displayColor: ThemeColors.blueText,
         ),
       ),
