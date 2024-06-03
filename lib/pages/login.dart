@@ -204,12 +204,17 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ],
                   ),
-                  Text(
-                    'Esqueceu a senha?',
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: ThemeColors.blueText,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/forgot_password');
+                    },
+                    child: Text(
+                      'Esqueceu a senha?',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: ThemeColors.blueText,
+                      ),
                     ),
                   ),
                 ],

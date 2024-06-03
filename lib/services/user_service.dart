@@ -53,4 +53,29 @@ class UserService extends ServiceParameters {
     return userId;
   }
 
+  sendEmailToken (String email) async {
+    final url = '${getUrl()}/users/reset-password';
+    final body = json.encode({
+      "username": email,
+    });
+    var response = await http.post(Uri.parse(url), body: body, headers: headers);
+    return response;
+  }
+
+  validateToken(String token) {
+    final url = '${getUrl()}/users/validate-token/$token';
+    var response = http.get(Uri.parse(url), headers: headers);
+    return response;
+  }
+
+  resetPassword(String password, String token) {
+    final url = '${getUrl()}/users/update-password';
+    final body = json.encode({
+      "token": token,
+      "password": password,
+    });
+    var response = http.post(Uri.parse(url), body: body, headers: headers);
+    return response;
+  }
+
 }

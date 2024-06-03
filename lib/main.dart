@@ -1,9 +1,12 @@
 import 'package:app_faculdade/pages/edit_password.dart';
+import 'package:app_faculdade/pages/forgot_password.dart';
 import 'package:app_faculdade/pages/home.dart';
 import 'package:app_faculdade/pages/login.dart';
 import 'package:app_faculdade/pages/query_password.dart';
 import 'package:app_faculdade/pages/register.dart';
 import 'package:app_faculdade/pages/register_password.dart';
+import 'package:app_faculdade/pages/reset_password.dart';
+import 'package:app_faculdade/pages/validate_token.dart';
 import 'package:app_faculdade/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,6 +49,8 @@ class MyApp extends StatelessWidget {
         '/register': (context) => const RegisterPage(),
         '/registerPassword': (context) => const RegisterPasswordPage(),
         '/editPassword': (context) => const EditPasswordPage(),
+        '/forgot_password': (context) => const ForgotPasswordPage(),
+        '/validate_token': (context) => const ValidatePasswordPage(),
       },
       builder: (context, child) {
         return SafeArea(
