@@ -1,16 +1,42 @@
-# app_faculdade
+# PassGuardian
 
-App para gerenciamento de senhas.
+![Logo do PassGuardian](assets/images/logo.png)
 
-## Getting Started
+## Visão Geral
 
-This project is a starting point for a Flutter application.
+O **PassGuardian** é um aplicativo seguro e fácil de usar para armazenar e gerenciar suas senhas. Ele oferece criptografia de ponta a ponta para garantir que suas informações estejam sempre protegidas.
 
-A few resources to get you started if this is your first Flutter project:
+## Funcionalidades
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Login com Usuário e Senha Padrão**: Acesse o aplicativo com um login tradicional.
+- **Geração de Senhas Fortes Aleatoriamente**: Crie senhas fortes e únicas para suas contas.
+- **Favoritar Aplicativos**: Marque seus aplicativos favoritos para acesso rápido.
+- **Armazenamento Seguro**: Seus dados são armazenados em um servidor com criptografia.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Repositórios
+
+- **Aplicativo (Frontend)**: [passGuardian-app](https://github.com/luanfred/passGuardian-app)
+- **Backend**: [passGuardian-backend](https://github.com/luanfred/passGuardian-backend)
+
+## Instalação
+
+1. Clone o repositório do aplicativo:
+   ```sh
+   git clone https://github.com/luanfred/passGuardian-app.git
+   ```
+
+2. Navegue até o diretório do projeto:
+   ```sh
+   cd passGuardian-app
+   ```
+
+3. Instale as dependências:
+   ```sh
+   flutter pub get
+   ```
+
+4. Execute o aplicativo:
+   ```sh
+   flutter run
+   ```
+
