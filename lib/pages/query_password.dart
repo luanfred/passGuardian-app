@@ -21,6 +21,7 @@ class _QueryPasswordState extends State<QueryPassword> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
+  final TextEditingController _masterPasswordController = TextEditingController();
 
   getInfoPassword() async {
     password = await PasswordService().getPasswordById(widget.passwordId);
@@ -97,6 +98,68 @@ class _QueryPasswordState extends State<QueryPassword> {
                 deletePassword();
               },
               child: const Text('Confirmar'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  validationPassword(BuildContext context) async {
+    _masterPasswordController.text = '';
+    if (!_obscureText) {
+      setState(() {
+        _obscureText = !_obscureText;
+      });
+      return;
+    }
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Validação de senha'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('Digite a senha mestre para visualizar a senha'),
+              const SizedBox(height: 10),
+              TextField(
+                controller: _masterPasswordController,
+                obscureText: true,
+                decoration: const InputDecoration(
+                  labelText: 'Senha mestre',
+                  border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(12.0))),
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Confirmar'),
+              onPressed: () async {
+                bool passwordValid = await PasswordService().validatePassword(_masterPasswordController.text);
+                if (passwordValid) {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    _obscureText = !_obscureText;
+                  });
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Senha mestre inválida'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
             ),
           ],
         );
@@ -293,9 +356,9 @@ class _QueryPasswordState extends State<QueryPassword> {
                     filled: true,
                     fillColor: Colors.white,
                     suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
+                      onPressed: () async {
+                        setState(() async {
+                          await validationPassword(context);
                         });
                       },
                       icon: Icon(

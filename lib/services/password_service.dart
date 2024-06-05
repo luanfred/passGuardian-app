@@ -140,4 +140,14 @@ class PasswordService extends ServiceParameters {
     var body = json.encode(password.toMap());
     return http.put(Uri.parse(url), body: body, headers: headers);
   }
+
+  validatePassword(String password) async {
+    final prefs = await SharedPreferences.getInstance();
+    final passwordMaster = prefs.getString('password');
+    if (password == passwordMaster) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
