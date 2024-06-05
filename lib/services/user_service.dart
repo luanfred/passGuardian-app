@@ -48,7 +48,7 @@ class UserService extends ServiceParameters {
     final url = '${getUrl()}/users/username/$username';
     headers['Authorization'] = "Basic ${base64Encode(utf8.encode('$username:$password'))}";
     var response = await http.get(Uri.parse(url), headers: headers);
-    var body = json.decode(response.body);
+    var body = json.decode(utf8.decode(response.bodyBytes));
     var userId = body['user_id'];
     return userId;
   }
@@ -76,6 +76,19 @@ class UserService extends ServiceParameters {
     });
     var response = http.post(Uri.parse(url), body: body, headers: headers);
     return response;
+  }
+
+  getUserById(int userId) async {
+    final url = '${getUrl()}/users/$userId';
+    final prefs = await SharedPreferences.getInstance();
+    var emailUserAuth = prefs.getString('username');
+    var passwordAuth = prefs.getString('password');
+    headers.addAll({
+      'Authorization': 'Basic ${base64Encode(utf8.encode('$emailUserAuth:$passwordAuth'))}'
+    });
+    var response = await http.get(Uri.parse(url), headers: headers);
+    var body = json.decode(utf8.decode(response.bodyBytes));
+    return body;
   }
 
 }

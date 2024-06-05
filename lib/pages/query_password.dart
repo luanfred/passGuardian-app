@@ -24,6 +24,7 @@ class _QueryPasswordState extends State<QueryPassword> {
 
   getInfoPassword() async {
     password = await PasswordService().getPasswordById(widget.passwordId);
+    print(password);
     _emailController.text = password.email;
     _passwordController.text = password.password;
     _urlController.text = password.url;

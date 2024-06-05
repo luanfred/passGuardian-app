@@ -58,7 +58,6 @@ class _HomePageState extends State<HomePage> {
         children: const [
           PasswordPage(),
           FavoritePage(),
-          GeneratePassword(),
           LogoutPage(),
         ],
         onPageChanged: (page) {setPageActive(page);},
@@ -75,12 +74,8 @@ class _HomePageState extends State<HomePage> {
             label: 'Favoritos',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.lock_outline),
-            label: 'Gerar Senha',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.logout_outlined),
-            label: 'Sair',
+            icon: Icon(Icons.person_outline),
+            label: 'Perfil',
           ),
         ],
         onTap: (page) {

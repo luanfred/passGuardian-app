@@ -38,7 +38,7 @@ class PasswordService extends ServiceParameters {
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
       List<PasswordModel2> passwordsList = [];
-      for (var password in json.decode(response.body)) {
+      for (var password in json.decode(utf8.decode(response.bodyBytes))) {
         passwordsList.add(PasswordModel2(
           passwordId: password['password_id'],
           title: password['title'],
@@ -64,7 +64,7 @@ class PasswordService extends ServiceParameters {
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
       List<PasswordModel2> passwordsList = [];
-      for (var password in json.decode(response.body)) {
+      for (var password in json.decode(utf8.decode(response.bodyBytes))) {
         passwordsList.add(PasswordModel2(
           passwordId: password['password_id'],
           title: password['title'],
@@ -90,7 +90,7 @@ class PasswordService extends ServiceParameters {
     });
     var response = await http.get(Uri.parse(url), headers: headers);
     if (response.statusCode == 200) {
-      var password = json.decode(response.body);
+      var password = json.decode(utf8.decode(response.bodyBytes));
       return PasswordModel2(
         passwordId: password['password_id'],
         title: password['title'],
