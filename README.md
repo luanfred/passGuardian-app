@@ -16,7 +16,7 @@ O **PassGuardian** é um aplicativo seguro e fácil de usar para armazenar e ger
 ## Repositórios
 
 - **Aplicativo (Frontend)**: [passGuardian-app](https://github.com/luanfred/passGuardian-app)
-- **Backend**: [passGuardian-backend](https://github.com/luanfred/passGuardian-backend)
+- **Backend**: [passGuardian-backend](https://github.com/luanfred/passGuardian-back-end)
 
 ## Instalação
 
